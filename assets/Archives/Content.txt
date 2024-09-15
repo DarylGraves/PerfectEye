@@ -68,4 +68,3 @@ Archives_Alpha_97.glb
 Archives_Alpha_98.glb
 Archives_Alpha_99.glb
 Archives.glb
-Content.txt

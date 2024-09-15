@@ -1,4 +1,3 @@
-Content.txt
 Facility_Alpha_13.glb
 Facility_Alpha_17.glb
 Facility_Alpha_18.glb

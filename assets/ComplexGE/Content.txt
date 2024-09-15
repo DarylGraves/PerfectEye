@@ -2,4 +2,3 @@ ComplexGE_Alpha_13.glb
 ComplexGE_Alpha_8.glb
 ComplexGE_Alpha_9.glb
 ComplexGE.glb
-Content.txt

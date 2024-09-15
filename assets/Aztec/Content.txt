@@ -34,4 +34,3 @@ Aztec_Alpha_90.glb
 Aztec_Alpha_92.glb
 Aztec_Alpha_99.glb
 Aztec.glb
-Content.txt
