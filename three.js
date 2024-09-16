@@ -319,7 +319,7 @@ function processMaterial(material, node, file) {
   // Handle alpha materials based on file name
   if (file.includes("Alpha")) {
     material.transparent = true;
-    material.alphaTest = 0.005;
+    material.alphaTest = 0.003;
     material.depthWrite = false;
     node.renderOrder = 9999;
   }
