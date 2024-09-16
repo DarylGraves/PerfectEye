@@ -3,6 +3,7 @@
 
 # Ignore node modules
 /node_modules/*
+
 # Ignoring map files
 /public/assets/*
 !/public/assets/zSkyboxes
