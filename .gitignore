@@ -1,0 +1,3 @@
+# Ignoring map files
+/public/assets/*
+!/public/assets/zSkyboxes
