@@ -1,3 +1,5 @@
+# Ignore build files
+/dist/*
 # Ignoring map files
 /public/assets/*
 !/public/assets/zSkyboxes
