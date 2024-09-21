@@ -1,0 +1,37 @@
+[
+    {
+        "label": "GoldenEye 007",
+        "links": [
+            { 
+                "label": "Dam",
+                "startPosX": 0,
+                "startPosY": 0
+            },
+            { 
+                "label": "Facility",
+                "startPosX": 0,
+                "startPosY": 0
+            },
+            { 
+                "label": "Temple",
+                "startPosX": 0,
+                "startPosY": 0
+            }
+        ]
+    },
+    {
+        "label": "Perfect Dark",
+        "links": [
+            { 
+                "label": "Carrington Institute",
+                "startPosX": 0,
+                "startPosY": 0
+            },
+            { 
+                "label": "Chicago Stealth",
+                "startPosX": 0,
+                "startPosY": 0
+            }
+        ]
+    }
+]
