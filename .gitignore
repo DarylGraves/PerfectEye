@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Removing game maps
-public\assets\GoldenEye*
+public/assets/GoldenEye*
