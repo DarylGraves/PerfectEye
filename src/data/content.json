@@ -6,25 +6,40 @@
                 "label": "Dam",
                 "path": "/GoldenEye/Dam",
                 "renderer": "ThreeJs",
+                "speed": 0.5,
+                "skybox": "blue.png",
                 "startPosX": 0,
                 "startPosY": 0,
-                "speed": 0.5
+                "startPosZ": 0,
+                "startRotX": 0,
+                "startRotY": 0,
+                "startRotZ": 0
             },
             { 
                 "label": "Facility",
                 "path": "/GoldenEye/Facility",
                 "renderer": "ThreeJs",
+                "speed": 0.5,
+                "skybox": "blue.png",
                 "startPosX": 0,
                 "startPosY": 0,
-                "speed": 0.5
+                "startPosZ": 0,
+                "startRotX": 0,
+                "startRotY": 0,
+                "startRotZ": 0
             },
             { 
                 "label": "Temple",
                 "path": "/GoldenEye/Temple",
                 "renderer": "ThreeJs",
+                "speed": 0.5,
+                "skybox": "blue.png",
                 "startPosX": 0,
                 "startPosY": 0,
-                "speed": 0.5
+                "startPosZ": 0,
+                "startRotX": 0,
+                "startRotY": 0,
+                "startRotZ": 0
             }
         ]
     },
@@ -35,17 +50,27 @@
                 "label": "Carrington Institute",
                 "path": "PerfectDark/CarringtonInstitute",
                 "renderer": "ThreeJs",
+                "speed": 0.5,
+                "skybox": "blue.png",
                 "startPosX": 0,
                 "startPosY": 0,
-                "speed": 0.5
+                "startPosZ": 0,
+                "startRotX": 0,
+                "startRotY": 0,
+                "startRotZ": 0
             },
             { 
                 "label": "Chicago Stealth",
                 "path": "PerfectDark/ChicagoStealth",
                 "renderer": "ThreeJs",
+                "speed": 0.5,
+                "skybox": "blue.png",
                 "startPosX": 0,
                 "startPosY": 0,
-                "speed": 0.5
+                "startPosZ": 0,
+                "startRotX": 0,
+                "startRotY": 0,
+                "startRotZ": 0
             }
         ]
     }

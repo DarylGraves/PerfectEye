@@ -45,9 +45,14 @@ function App() {
             overflow: "hidden",
           }}
         >
-          <div>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
             {currentScene ? (
-              <Render setupScene={currentScene} /> // Render the scene if available
+              <Render setupScene={currentScene!} />
             ) : (
               "Select a map on the left to begin"
             )}

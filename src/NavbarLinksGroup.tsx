@@ -15,8 +15,14 @@ interface LinksGroupProps {
     label: string;
     path: string;
     renderer: string;
+    skybox: string;
+    speed: number;
     startPosX: number;
     startPosY: number;
+    startPosZ: number;
+    startRotX: number;
+    startRotY: number;
+    startRotZ: number;
   }[];
   onSceneChange: (scene: Scene) => void; // Use Scene type correctly
 }
@@ -42,8 +48,14 @@ export function LinksGroup({
           link.label,
           link.path,
           link.renderer,
+          link.speed,
+          link.skybox,
           link.startPosX,
-          link.startPosY
+          link.startPosY,
+          link.startPosZ,
+          link.startRotX,
+          link.startRotX,
+          link.startRotX
         );
         onSceneChange(newScene);
       }}
