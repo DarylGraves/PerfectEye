@@ -8,6 +8,8 @@ interface SceneProps {
     name: string;
     path: string;
     renderer: string;
+    speed: number;
+    skybox: string;
     startPosX: number;
     startPosY: number;
     startPosZ: number;
@@ -21,9 +23,8 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<string[]>([]);
   let controls: PointerLockControls;
-  const moveSpeed = 0.35; // Movement speed
+  let moveSpeed = scene.speed; // Initial movement speed
   const velocity = new THREE.Vector3();
-  const direction = new THREE.Vector3();
   const keys = { w: false, a: false, s: false, d: false }; // Track which keys are pressed
   let isShiftPressed = false; // Track the state of the shift key
 
@@ -81,6 +82,15 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
           break;
       }
     });
+
+    // Handle mouse wheel to adjust speed
+    domElement.addEventListener("wheel", (event) => {
+      if (event.deltaY < 0) {
+        moveSpeed += scene.speed * 0.25; // Scroll up to increase speed
+      } else if (event.deltaY > 0) {
+        moveSpeed = Math.max(0.05, moveSpeed - scene.speed * 0.25); // Scroll down to decrease speed, min speed is 0.05
+      }
+    });
   };
 
   const updateMovement = (camera: THREE.PerspectiveCamera) => {
@@ -128,7 +138,6 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
         }
 
         const contentText = await response.text();
-        console.log("ContentText:", contentText);
 
         // Assume Content.txt contains file names, one per line
         const fileList = contentText
@@ -183,6 +192,14 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     const light = new THREE.HemisphereLight(0xffffff, 0x444444, 2); // Bright sky color, dim ground color
     light.position.set(0, 1, 0);
     threeScene.add(light);
+
+    //Skybox
+    const skyboxLoader = new THREE.TextureLoader();
+    console.log(`Loading skybox: /assets/Skyboxes/${scene.skybox}`);
+    skyboxLoader.load(`/assets/Skyboxes/${scene.skybox}`, function (texture) {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      threeScene.background = texture;
+    });
 
     // Model Loading
     const loader = new GLTFLoader();
