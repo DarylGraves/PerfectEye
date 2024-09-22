@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
+//TODO: 4 - Before Prod remove /PerfectEye/ from all download paths.
+
 interface SceneProps {
   scene: {
     name: string;
@@ -129,7 +131,7 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     // Fetch Content.txt from scene.path
     const fetchContent = async () => {
       try {
-        const contentPath = `/assets${scene.path}/Content.txt`;
+        const contentPath = `/PerfectEye/assets${scene.path}/Content.txt`;
         const response = await fetch(contentPath);
         if (!response.ok) {
           console.error(`Failed to fetch Content.txt from ${contentPath}`);
@@ -194,16 +196,19 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
 
     // Skybox
     const skyboxLoader = new THREE.TextureLoader();
-    skyboxLoader.load(`/assets/Skyboxes/${scene.skybox}`, function (texture) {
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-      threeScene.background = texture;
-    });
+    skyboxLoader.load(
+      `/PerfectEye/assets/Skyboxes/${scene.skybox}`,
+      function (texture) {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        threeScene.background = texture;
+      }
+    );
 
     // Model Loading
     const loader = new GLTFLoader();
 
     files.forEach((fileName) => {
-      const fileUrl = `/assets${scene.path}/${fileName}`;
+      const fileUrl = `/PerfectEye/assets${scene.path}/${fileName}`;
       loader.load(
         fileUrl,
         (gltf) => {
