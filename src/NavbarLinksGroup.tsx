@@ -11,7 +11,13 @@ type NavbarLinksGroupProps = {
 interface LinksGroupProps {
   label: string;
   initiallyOpened?: boolean;
-  links?: { label: string; startPosX: number; startPosY: number }[];
+  links?: {
+    label: string;
+    path: string;
+    renderer: string;
+    startPosX: number;
+    startPosY: number;
+  }[];
   onSceneChange: (scene: Scene) => void; // Use Scene type correctly
 }
 
@@ -32,7 +38,13 @@ export function LinksGroup({
       key={link.label}
       onClick={(event) => {
         event.preventDefault();
-        const newScene = new Scene(link.label, link.startPosX, link.startPosY);
+        const newScene = new Scene(
+          link.label,
+          link.path,
+          link.renderer,
+          link.startPosX,
+          link.startPosY
+        );
         onSceneChange(newScene);
       }}
     >
@@ -45,6 +57,10 @@ export function LinksGroup({
       <UnstyledButton
         onClick={() => setOpened((o) => !o)}
         className={classes.control}
+        style={{
+          borderRadius: 0,
+          borderBottom: "1px solid gray",
+        }}
       >
         <Group justify="space-between" gap={0}>
           <Box style={{ display: "flex", alignItems: "center" }}>

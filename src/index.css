@@ -7,10 +7,21 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  margin: 0;
+  height: 100%;
+  width: 100%;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root{
+  padding-top: 0%;
+  padding-left: 0%;
+  padding-right: 0%;
+  padding-bottom: 0%;
 }
 
 a {

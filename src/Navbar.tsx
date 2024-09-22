@@ -7,8 +7,16 @@ type NavbarProps = {
 
 export default function Navbar({ onSceneChange }: NavbarProps) {
   return (
-    <div style={{ padding: 0, margin: 0, width: "200px" }}>
-      <h2>PerfectEye</h2>
+    <div style={{ padding: 0, margin: 0 }}>
+      <h2
+        style={{
+          borderBottom: "1px solid grey",
+          paddingBottom: 19.92,
+          marginBottom: 0,
+        }}
+      >
+        PerfectEye
+      </h2>
       <NavbarLinksGroup onSceneChange={onSceneChange} />
     </div>
   );

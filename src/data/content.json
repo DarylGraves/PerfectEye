@@ -4,18 +4,27 @@
         "links": [
             { 
                 "label": "Dam",
+                "path": "/GoldenEye/Dam",
+                "renderer": "ThreeJs",
                 "startPosX": 0,
-                "startPosY": 0
+                "startPosY": 0,
+                "speed": 0.5
             },
             { 
                 "label": "Facility",
+                "path": "/GoldenEye/Facility",
+                "renderer": "ThreeJs",
                 "startPosX": 0,
-                "startPosY": 0
+                "startPosY": 0,
+                "speed": 0.5
             },
             { 
                 "label": "Temple",
+                "path": "/GoldenEye/Temple",
+                "renderer": "ThreeJs",
                 "startPosX": 0,
-                "startPosY": 0
+                "startPosY": 0,
+                "speed": 0.5
             }
         ]
     },
@@ -24,13 +33,19 @@
         "links": [
             { 
                 "label": "Carrington Institute",
+                "path": "PerfectDark/CarringtonInstitute",
+                "renderer": "ThreeJs",
                 "startPosX": 0,
-                "startPosY": 0
+                "startPosY": 0,
+                "speed": 0.5
             },
             { 
                 "label": "Chicago Stealth",
+                "path": "PerfectDark/ChicagoStealth",
+                "renderer": "ThreeJs",
                 "startPosX": 0,
-                "startPosY": 0
+                "startPosY": 0,
+                "speed": 0.5
             }
         ]
     }

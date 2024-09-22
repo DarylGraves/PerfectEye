@@ -18,23 +18,41 @@ const theme = createTheme({
 
 function App() {
   const [currentScene, setCurrentScene] = useState<Scene | null>(null); // Initialize with null
+  const [navBarWidth, setNavbarWidth] = useState(200);
 
   return (
     <MantineProvider theme={theme} forceColorScheme="dark">
-      <AppShell>
-        <AppShellHeader>
-          <div>TestHeader</div>
+      <AppShell style={{ overflow: "hidden" }}>
+        <AppShellHeader
+          style={{
+            marginLeft: navBarWidth, // Centers based on navbar
+            height: "25px",
+          }}
+        >
+          <div>{currentScene ? currentScene.name : ""}</div>
         </AppShellHeader>
-        <AppShell.Navbar>
+        <AppShell.Navbar
+          style={{ width: navBarWidth, position: "fixed", height: "100vh" }}
+        >
           <Navbar onSceneChange={setCurrentScene} />
         </AppShell.Navbar>
-        <div>
-          {currentScene ? (
-            <Render setupScene={currentScene} /> // Render the scene if available
-          ) : (
-            "Select a scene"
-          )}
-        </div>
+        <AppShell.Main
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginLeft: navBarWidth, // Centers based on navbar
+            height: "calc(100vh - 25px)",
+            overflow: "hidden",
+          }}
+        >
+          <div>
+            {currentScene ? (
+              <Render setupScene={currentScene} /> // Render the scene if available
+            ) : (
+              "Select a map on the left to begin"
+            )}
+          </div>
+        </AppShell.Main>
       </AppShell>
     </MantineProvider>
   );
