@@ -36,33 +36,35 @@ export function LinksGroup({
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
 
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<"a">
-      component="a"
-      style={{ cursor: "pointer" }}
-      className={classes.link}
-      key={link.label}
-      onClick={(event) => {
-        event.preventDefault();
-        const newScene = new Scene(
-          link.label,
-          link.path,
-          link.renderer,
-          link.speed,
-          link.skybox,
-          link.startPosX,
-          link.startPosY,
-          link.startPosZ,
-          link.startRotX,
-          link.startRotX,
-          link.startRotX
-        );
-        onSceneChange(newScene);
-      }}
-    >
-      {link.label}
-    </Text>
-  ));
+  const items = (hasLinks ? links : [])
+    .sort((a, b) => a.label.localeCompare(b.label))
+    .map((link) => (
+      <Text<"a">
+        component="a"
+        style={{ cursor: "pointer" }}
+        className={classes.link}
+        key={link.label}
+        onClick={(event) => {
+          event.preventDefault();
+          const newScene = new Scene(
+            link.label,
+            link.path,
+            link.renderer,
+            link.speed,
+            link.skybox,
+            link.startPosX,
+            link.startPosY,
+            link.startPosZ,
+            link.startRotX,
+            link.startRotY,
+            link.startRotZ
+          );
+          onSceneChange(newScene);
+        }}
+      >
+        {link.label}
+      </Text>
+    ));
 
   return (
     <>

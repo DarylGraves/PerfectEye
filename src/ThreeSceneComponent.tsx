@@ -89,7 +89,7 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
       if (event.deltaY < 0) {
         moveSpeed += scene.speed * 0.25; // Scroll up to increase speed
       } else if (event.deltaY > 0) {
-        moveSpeed = Math.max(5, moveSpeed - scene.speed * 0.25);
+        moveSpeed = Math.max(1, moveSpeed - scene.speed * 0.25);
       }
     });
   };
@@ -182,7 +182,7 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     // Camera
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.set(scene.startPosX, scene.startPosY, scene.startPosZ);
-    camera.lookAt(scene.startRotX, scene.startRotY, scene.startRotZ);
+    camera.rotation.set(scene.startRotX, scene.startRotY, scene.startRotZ);
 
     // Initialize Pointer Lock and movement
     initMovement(camera, renderer.domElement);
@@ -194,7 +194,6 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
 
     // Skybox
     const skyboxLoader = new THREE.TextureLoader();
-    console.log(`Loading skybox: /assets/Skyboxes/${scene.skybox}`);
     skyboxLoader.load(`/assets/Skyboxes/${scene.skybox}`, function (texture) {
       texture.mapping = THREE.EquirectangularReflectionMapping;
       threeScene.background = texture;
@@ -232,14 +231,13 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
 
           // Add the processed model to the scene
           threeScene.add(model);
-          console.log(`${fileName} loaded`);
         },
         (xhr) => {
-          console.log(
-            `Loading ${fileUrl}: ${((xhr.loaded / xhr.total) * 100).toFixed(
-              2
-            )}% loaded`
-          );
+          //   console.log(
+          //     `Loading ${fileUrl}: ${((xhr.loaded / xhr.total) * 100).toFixed(
+          //       2
+          //     )}% loaded`
+          //   );
         },
         (error) => {
           console.error(`Error loading ${fileUrl}:`, error);
@@ -347,6 +345,8 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
       }
 
       renderer.render(threeScene, camera);
+      //   console.log("Camera coordinates:", camera.position);
+      //   console.log("Camera rotation:", camera.rotation);
     };
     animate();
 
