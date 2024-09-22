@@ -232,13 +232,6 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
           // Add the processed model to the scene
           threeScene.add(model);
         },
-        (xhr) => {
-          //   console.log(
-          //     `Loading ${fileUrl}: ${((xhr.loaded / xhr.total) * 100).toFixed(
-          //       2
-          //     )}% loaded`
-          //   );
-        },
         (error) => {
           console.error(`Error loading ${fileUrl}:`, error);
         }

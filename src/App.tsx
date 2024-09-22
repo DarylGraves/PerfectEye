@@ -18,7 +18,10 @@ const theme = createTheme({
 
 function App() {
   const [currentScene, setCurrentScene] = useState<Scene | null>(null); // Initialize with null
-  const [navBarWidth, setNavbarWidth] = useState(200);
+
+  //TODO: Navbar that collapses:
+  // const [navBarWidth, setNavbarWidth] = useState(200);
+  const navBarWidth = 200;
 
   return (
     <MantineProvider theme={theme} forceColorScheme="dark">
