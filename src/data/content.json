@@ -8,12 +8,12 @@
                 "renderer": "ThreeJs",
                 "speed": 0.5,
                 "skybox": "blue.png",
-                "startPosX": 0,
-                "startPosY": 0,
-                "startPosZ": 0,
-                "startRotX": 0,
-                "startRotY": 0,
-                "startRotZ": 0
+                "startPosX": 621.6265910446157,
+                "startPosY": 6.3358213464629,
+                "startPosZ": 629.8439472212391,
+                "startRotX": -0.037711177685525774,
+                "startRotY": 1.0116802326496004,
+                "startRotZ": 0.03197294540578007
             },
             { 
                 "label": "Facility",

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { OrbitControls } from "three-stdlib";
 import * as THREE from "three";
+import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
 interface SceneProps {
@@ -20,6 +20,99 @@ interface SceneProps {
 const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<string[]>([]);
+  let controls: PointerLockControls;
+  const moveSpeed = 0.35; // Movement speed
+  const velocity = new THREE.Vector3();
+  const direction = new THREE.Vector3();
+  const keys = { w: false, a: false, s: false, d: false }; // Track which keys are pressed
+  let isShiftPressed = false; // Track the state of the shift key
+
+  // Handle keyboard input for movement
+  const initMovement = (
+    camera: THREE.PerspectiveCamera,
+    domElement: HTMLElement
+  ) => {
+    controls = new PointerLockControls(camera, domElement);
+
+    // Lock the pointer and start controlling the camera when the user clicks
+    document.addEventListener("click", () => {
+      controls.lock();
+    });
+
+    // Handle keyboard input for movement
+    document.addEventListener("keydown", (event) => {
+      switch (event.code) {
+        case "KeyW":
+          keys.w = true;
+          break;
+        case "KeyA":
+          keys.a = true;
+          break;
+        case "KeyS":
+          keys.s = true;
+          break;
+        case "KeyD":
+          keys.d = true;
+          break;
+        case "ShiftLeft":
+        case "ShiftRight":
+          isShiftPressed = true;
+          break;
+      }
+    });
+
+    document.addEventListener("keyup", (event) => {
+      switch (event.code) {
+        case "KeyW":
+          keys.w = false;
+          break;
+        case "KeyA":
+          keys.a = false;
+          break;
+        case "KeyS":
+          keys.s = false;
+          break;
+        case "KeyD":
+          keys.d = false;
+          break;
+        case "ShiftLeft":
+        case "ShiftRight":
+          isShiftPressed = false;
+          break;
+      }
+    });
+  };
+
+  const updateMovement = (camera: THREE.PerspectiveCamera) => {
+    if (!controls || !controls.isLocked) return;
+
+    // Reset velocity
+    velocity.set(0, 0, 0);
+
+    // Get the camera's forward direction (for W and S)
+    const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(
+      camera.quaternion
+    );
+
+    // Get the camera's right direction (for A and D)
+    const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
+
+    // Adjust movement speed based on whether Shift is pressed
+    const currentMoveSpeed = isShiftPressed ? moveSpeed * 2 : moveSpeed;
+
+    // Handle forward/backward movement
+    if (keys.w) velocity.addScaledVector(forward, currentMoveSpeed); // Move forward
+    if (keys.s) velocity.addScaledVector(forward, -currentMoveSpeed); // Move backward
+
+    // Handle left/right strafing movement
+    if (keys.a) velocity.addScaledVector(right, -currentMoveSpeed); // Move left
+    if (keys.d) velocity.addScaledVector(right, currentMoveSpeed); // Move right
+
+    // Apply velocity to move the camera
+    controls.getObject().position.add(velocity);
+  };
+
+  const isControlsLocked = () => controls && controls.isLocked;
 
   useEffect(() => {
     // Fetch Content.txt from scene.path
@@ -81,22 +174,15 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     // Camera
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.set(scene.startPosX, scene.startPosY, scene.startPosZ);
-    // camera.lookAt(scene.startRotX, scene.startRotY, scene.startRotZ);
-    camera.lookAt(0, 0, 0);
+    camera.lookAt(scene.startRotX, scene.startRotY, scene.startRotZ);
+
+    // Initialize Pointer Lock and movement
+    initMovement(camera, renderer.domElement);
 
     // Lights
     const light = new THREE.HemisphereLight(0xffffff, 0x444444, 2); // Bright sky color, dim ground color
     light.position.set(0, 1, 0);
     threeScene.add(light);
-
-    //
-    //TODO: Remove OrbitControls and replace with WASD
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.update();
-
-    // AxesHelperV
-    const axesHelper = new THREE.AxesHelper(5);
-    threeScene.add(axesHelper);
 
     // Model Loading
     const loader = new GLTFLoader();
@@ -126,7 +212,12 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     // Animation Loop
     const animate = () => {
       requestAnimationFrame(animate);
-      // controls.update(); // Uncomment if using OrbitControls
+
+      // Update camera movement if pointer lock is active
+      if (isControlsLocked()) {
+        updateMovement(camera);
+      }
+
       renderer.render(threeScene, camera);
     };
     animate();
