@@ -10,7 +10,6 @@ export default function Navbar({ onSceneChange }: NavbarProps) {
     <div style={{ padding: 0, margin: 0 }}>
       <h2
         style={{
-          borderBottom: "1px solid grey",
           paddingBottom: 19.92,
           marginBottom: 0,
         }}

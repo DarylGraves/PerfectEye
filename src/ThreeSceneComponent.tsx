@@ -37,7 +37,7 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     controls = new PointerLockControls(camera, domElement);
 
     // Lock the pointer and start controlling the camera when the user clicks
-    document.addEventListener("click", () => {
+    domElement.addEventListener("click", () => {
       controls.lock();
     });
 

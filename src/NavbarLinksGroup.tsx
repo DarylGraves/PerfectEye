@@ -74,6 +74,7 @@ export function LinksGroup({
         style={{
           borderRadius: 0,
           borderBottom: "1px solid gray",
+          borderTop: "1px solid gray",
         }}
       >
         <Group justify="space-between" gap={0}>
