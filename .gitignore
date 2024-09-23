@@ -26,3 +26,6 @@ dist-ssr
 # Removing game maps
 public/assets/GoldenEye*
 public/assets/PerfectDark*
+public/assets/Perfect Dark*
+public/assets/Diddy Kong Racing*
+public/assets/Super Smash Bros*

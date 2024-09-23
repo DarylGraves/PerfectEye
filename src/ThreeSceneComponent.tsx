@@ -128,31 +128,8 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
   const isControlsLocked = () => controls && controls.isLocked;
 
   useEffect(() => {
-    // Fetch Content.txt from scene.path
-    const fetchContent = async () => {
-      try {
-        const contentPath = `/PerfectEye/assets${scene.path}/Content.txt`;
-        const response = await fetch(contentPath);
-        if (!response.ok) {
-          console.error(`Failed to fetch Content.txt from ${contentPath}`);
-          return;
-        }
-
-        const contentText = await response.text();
-
-        // Assume Content.txt contains file names, one per line
-        const fileList = contentText
-          .split("\n")
-          .map((line) => line.trim())
-          .filter((line) => line !== "");
-        setFiles(fileList);
-      } catch (error) {
-        console.error(`Error fetching Content.txt:`, error);
-      }
-    };
-
-    fetchContent();
-  }, [scene.path]);
+    setFiles([`${scene.name}.glb`]);
+  }, [scene.name]);
 
   useEffect(() => {
     const mount = mountRef.current;

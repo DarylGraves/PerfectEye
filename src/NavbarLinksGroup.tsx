@@ -41,7 +41,7 @@ export function LinksGroup({
     .map((link) => (
       <Text<"a">
         component="a"
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", wordWrap: "break-word" }}
         className={classes.link}
         key={link.label}
         onClick={(event) => {
@@ -65,7 +65,6 @@ export function LinksGroup({
         {link.label}
       </Text>
     ));
-
   return (
     <>
       <UnstyledButton
@@ -86,9 +85,14 @@ export function LinksGroup({
         </Group>
       </UnstyledButton>
       {hasLinks ? (
-        <Collapse in={opened} style={{ textAlign: "left" }}>
-          {items}
-        </Collapse>
+        <div style={{ overflowY: "auto", maxHeight: "calc(100vh - 100px)" }}>
+          <Collapse
+            in={opened}
+            style={{ textAlign: "left", paddingBottom: "150px" }} // Apply padding only here
+          >
+            {items}
+          </Collapse>
+        </div>
       ) : null}
     </>
   );
