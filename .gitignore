@@ -23,9 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Removing game maps
-public/assets/GoldenEye*
-public/assets/PerfectDark*
-public/assets/Perfect Dark*
-public/assets/Diddy Kong Racing*
-public/assets/Super Smash Bros*
+# Don't upload all the maps, just the Skyboxes
+public/assets/*
+!public/assets/Skyboxes/
