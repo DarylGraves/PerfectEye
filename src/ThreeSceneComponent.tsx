@@ -167,9 +167,10 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
     initMovement(camera, renderer.domElement);
 
     // Lights
-    const light = new THREE.HemisphereLight(0xffffff, 0x444444, 2); // Bright sky color, dim ground color
-    light.position.set(0, 1, 0);
-    threeScene.add(light);
+    // const light = new THREE.HemisphereLight(0xffffff, 0x444444, 2); // Bright sky color, dim ground color
+    // const light = new THREE.AmbientLight(0xffffff, 2);
+    // light.position.set(0, 1, 0);
+    // threeScene.add(light);
 
     // Skybox
     const skyboxLoader = new THREE.TextureLoader();
@@ -199,14 +200,10 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
               // Check if the mesh has a material and process it
               if (Array.isArray(mesh.material)) {
                 mesh.material.forEach((material: THREE.Material) => {
-                  processMaterial(material, mesh, fileName);
+                  processMaterial(material);
                 });
               } else {
-                processMaterial(
-                  mesh.material as THREE.Material,
-                  mesh,
-                  fileName
-                );
+                processMaterial(mesh.material as THREE.Material);
               }
             }
           });
@@ -220,90 +217,55 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
       );
     });
 
-    function processMaterial(
-      material: THREE.Material,
-      node: THREE.Mesh,
-      file: string
-    ) {
-      // Define texture properties to check
-      const textureProps = [
-        "map",
-        "normalMap",
-        "alphaMap",
-        "roughnessMap",
-        "metalnessMap",
-        "bumpMap",
-        "displacementMap",
-        "emissiveMap",
-        "lightMap",
-        "aoMap",
-      ];
-
+    function processMaterial(material: THREE.Material) {
       // Set default material properties
       material.premultipliedAlpha = true;
       material.depthWrite = true;
       material.side = THREE.FrontSide;
       material.opacity = 1.0;
 
-      // Extract opacity from the material name (if present)
-      const opacityRegex = /Opacity(\d+\.\d+)/;
-      const opacityMatch = opacityRegex.exec(material.name);
-
-      if (opacityMatch) {
-        const opacityValue = parseFloat(opacityMatch[1]); // Extract the opacity value
-        material.opacity = opacityValue; // Set the material opacity
+      // Set base color to [0.8, 0.8, 0.8]
+      if (
+        material instanceof THREE.MeshBasicMaterial ||
+        material instanceof THREE.MeshStandardMaterial ||
+        material instanceof THREE.MeshPhongMaterial ||
+        material instanceof THREE.MeshLambertMaterial ||
+        material instanceof THREE.MeshPhysicalMaterial ||
+        material instanceof THREE.MeshToonMaterial
+      ) {
+        material.color.setRGB(0.8, 0.8, 0.8);
+      } else if (material instanceof THREE.MeshMatcapMaterial) {
+        // MeshMatcapMaterial uses matcap texture instead of color
+        // You may need to adjust the matcap texture accordingly
+      } else if (material instanceof THREE.MeshDepthMaterial) {
+        // MeshDepthMaterial doesn't support color
+      } else if (material instanceof THREE.ShaderMaterial) {
+        // For ShaderMaterial, you might need to modify uniforms
+        if (material.uniforms && material.uniforms.color) {
+          material.uniforms.color.value.setRGB(0.8, 0.8, 0.8);
+        }
+      } else {
+        // Handle other material types or log a warning
+        console.warn(
+          `Material type not recognized for setting base color: ${material.type}`
+        );
       }
 
       // Check material name for texture addressing modes
       const name = material.name;
-
-      const clampS = name.includes("ClampS");
-      const clampT = name.includes("ClampT");
-      const mirrorS = name.includes("MirrorS");
-      const mirrorT = name.includes("MirrorT");
-
-      // Apply texture wrapping modes based on material name
-      if (mirrorS || mirrorT) {
-        // Mirroring overrides clamping
-        textureProps.forEach(function (prop) {
-          const texture = (material as any)[prop];
-          if (texture) {
-            if (mirrorS) texture.wrapS = THREE.MirroredRepeatWrapping;
-            if (mirrorT) texture.wrapT = THREE.MirroredRepeatWrapping;
-            texture.needsUpdate = true;
-          }
-        });
-      } else if (clampS && clampT) {
-        // Apply clamping if both ClampS and ClampT are present
-        textureProps.forEach(function (prop) {
-          const texture = (material as any)[prop];
-          if (texture) {
-            texture.wrapS = THREE.ClampToEdgeWrapping;
-            texture.wrapT = THREE.ClampToEdgeWrapping;
-            texture.needsUpdate = true;
-          }
-        });
-      }
 
       // Handle materials with "TopFlag" or "UNTEXTURED" in their names
       if (name.includes("TopFlag") || name.includes("UNTEXTURED")) {
         material.polygonOffset = true;
         material.polygonOffsetFactor = -1;
         material.polygonOffsetUnits = -1;
-        node.renderOrder = 999;
-      }
-
-      // Handle materials with "CullBoth" in their names
-      if (name.includes("CullBoth")) {
-        material.side = THREE.DoubleSide;
       }
 
       // Handle alpha materials based on file name
-      if (file.includes("Alpha")) {
+      if (name.includes("TopFlag") || name.includes("Transparent")) {
         material.transparent = true;
         material.alphaTest = 0.003;
         material.depthWrite = false;
-        node.renderOrder = 9999;
       }
     }
 
