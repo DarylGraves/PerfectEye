@@ -1980,15 +1980,15 @@
       {
         "label": "Facing Worlds",
         "path": "/Unreal Tournament/Facing Worlds",
-        "renderer": "N64_GEPD",
+        "renderer": "UnrealTournament",
         "speed": 25,
         "skybox": "blue.png",
-        "startPosX": 0,
-        "startPosY": 0,
-        "startPosZ": 0,
-        "startRotX": 0,
-        "startRotY": 0,
-        "startRotZ": 0
+        "startPosX": 186.72035590231457,
+        "startPosY": 16.98402665494762,
+        "startPosZ": 63.183068200805856,
+        "startRotX": -0.92017899631038,
+        "startRotY": 0.9734782892324935,
+        "startRotZ": 0.8267266151180125
       }
     ]
   }
