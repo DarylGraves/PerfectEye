@@ -80,7 +80,7 @@ foreach ($Game in $Games) {
             $ExistingData = $PreviousContentGame.links | Where-Object { $_.label -eq $Map.Name }
         }
 
-        if ($null -eq $PreviousContentGame) {
+        if ($null -eq $ExistingData) {
             Write-Host "`t`tNo previous data for $($Map.Name), creating new entry" -ForegroundColor Yellow
             $Root.Links += [PSCustomObject]@{
                 label     = $Map.Name
