@@ -21,7 +21,7 @@ interface SceneProps {
   };
 }
 
-const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
+const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<string[]>([]);
   let controls: PointerLockControls;
@@ -310,4 +310,4 @@ const ThreeSceneComponent: React.FC<SceneProps> = ({ scene }) => {
   return <div ref={mountRef} />;
 };
 
-export default ThreeSceneComponent;
+export default N64_GEPD;

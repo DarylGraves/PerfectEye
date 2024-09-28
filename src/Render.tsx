@@ -1,6 +1,13 @@
 import Scene from "./Scene";
-import ThreeSceneComponent from "./ThreeSceneComponent";
+import N64_GEPD from "./renders/N64_GEPD";
 
 export default function Render({ setupScene }: { setupScene: Scene }) {
-  return <ThreeSceneComponent scene={setupScene} />;
+  switch (setupScene.renderer) {
+    case "N64_GEPD":
+      return <N64_GEPD scene={setupScene} />;
+      break;
+
+    default:
+      break;
+  }
 }
