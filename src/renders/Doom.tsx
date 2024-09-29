@@ -10,11 +10,7 @@ interface SceneProps {
 
 type AnimatedTextureKey = keyof typeof animatedTextures;
 
-function isAnimatedTextureKey(key: string): key is AnimatedTextureKey {
-  return key in animatedTextures;
-}
-
-const skyBoxes = ["F_SKY1"];
+// const skyBoxes = ["F_SKY1"];
 
 // Define animated texture sequences
 const animatedTextures = {
@@ -94,8 +90,7 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
           texture.needsUpdate = true;
           loadedTextures[index] = texture; // Store the texture in the array
         },
-        undefined,
-        (error) => {}
+        undefined
       );
     });
 
