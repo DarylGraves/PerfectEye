@@ -163,7 +163,7 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
-      75,
+      80,
       width / height,
       0.1,
       cameraclipdistance
