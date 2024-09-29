@@ -95,6 +95,7 @@ export function LinksGroup({
           paddingTop: "5px",
           paddingBottom: "5px",
           fontSize: "16px",
+          outline: "none",
         }}
       >
         <Group justify="space-between" gap={0}>

@@ -25,3 +25,4 @@ dist-ssr
 
 # Don't upload all the maps, just the Skyboxes
 public/assets/Games*
+public/assets/Music*

@@ -1,12 +1,23 @@
 import { UnstyledButton } from "@mantine/core";
+import { useState } from "react";
 import { NavbarLinksGroup } from "./NavbarLinksGroup";
+import Nostalgia from "./Nostalgia";
 import Scene from "./Scene";
 
 type NavbarProps = {
-  onSceneChange: (Scene: Scene) => void; // Use Scene class as a type
+  onSceneChange: (scene: Scene) => void;
 };
 
 export default function Navbar({ onSceneChange }: NavbarProps) {
+  // State for currentScene
+  const [currentScene, setCurrentScene] = useState<Scene | null>(null);
+
+  // Handler for updating the scene
+  const handleSceneChange = (newScene: Scene) => {
+    setCurrentScene(newScene);
+    onSceneChange(newScene); // Notify parent if necessary
+  };
+
   return (
     <div
       className="primarycolor"
@@ -36,7 +47,7 @@ export default function Navbar({ onSceneChange }: NavbarProps) {
         >
           PerfectEye
         </h2>
-        <NavbarLinksGroup onSceneChange={onSceneChange} />
+        <NavbarLinksGroup onSceneChange={handleSceneChange} />
       </div>
       <div
         style={{
@@ -47,12 +58,13 @@ export default function Navbar({ onSceneChange }: NavbarProps) {
           padding: "10px 0",
         }}
       >
-        <UnstyledButton>To Do</UnstyledButton>
-        <UnstyledButton>To Do</UnstyledButton>
+        <UnstyledButton style={{ outline: "none" }}>
+          <Nostalgia setupScene={currentScene} />
+        </UnstyledButton>
+        <UnstyledButton>About (Doesn't work yet)</UnstyledButton>
       </div>
     </div>
   );
 }
 
-//TODO: Nostalgia Music
-//TODO: More Info
+//TODO: 2 - Complete To Do with Info
