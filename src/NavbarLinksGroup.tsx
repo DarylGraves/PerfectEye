@@ -3,6 +3,7 @@ import { Group, Box, Collapse, Text, UnstyledButton } from "@mantine/core";
 import classes from "./NavbarLinksGroup.module.css";
 import content from "./data/content.json";
 import Scene from "./Scene"; // Import Scene correctly
+import "./app.css";
 
 type NavbarLinksGroupProps = {
   onSceneChange: (scene: Scene) => void;
@@ -25,25 +26,38 @@ interface LinksGroupProps {
     startRotY: number;
     startRotZ: number;
   }[];
-  onSceneChange: (scene: Scene) => void; // Use Scene type correctly
+  onSceneChange: (scene: Scene) => void;
+  opened: boolean; // Prop to control opened state
+  onToggle: () => void; // Prop to handle toggling
 }
 
 export function LinksGroup({
   label,
-  initiallyOpened,
   links,
   onSceneChange,
+  opened,
+  onToggle,
 }: LinksGroupProps) {
   const hasLinks = Array.isArray(links);
-  const [opened, setOpened] = useState(initiallyOpened || false);
 
   const items = (hasLinks ? links : [])
     .sort((a, b) => a.label.localeCompare(b.label))
     .map((link) => (
       <Text<"a">
         component="a"
-        style={{ cursor: "pointer", wordWrap: "break-word" }}
-        className={classes.link}
+        style={{
+          cursor: "pointer",
+          wordWrap: "normal",
+          borderLeft: "0px",
+          paddingLeft: "18px",
+          paddingRight: "0px",
+          paddingTop: "5px",
+          paddingBottom: "5px",
+          marginLeft: "0px",
+          fontSize: "14px",
+          borderBottom: "1px solid gray",
+        }}
+        className={`${classes.control} secondarycolor`}
         key={link.label}
         onClick={(event) => {
           event.preventDefault();
@@ -67,15 +81,20 @@ export function LinksGroup({
         {link.label}
       </Text>
     ));
+
   return (
     <>
       <UnstyledButton
-        onClick={() => setOpened((o) => !o)}
-        className={classes.control}
+        onClick={onToggle}
+        className={`${classes.control} primarycolor`}
         style={{
           borderRadius: 0,
           borderBottom: "1px solid gray",
-          borderTop: "1px solid gray",
+          borderTop: "0px solid gray",
+          paddingLeft: "0px",
+          paddingTop: "5px",
+          paddingBottom: "5px",
+          fontSize: "16px",
         }}
       >
         <Group justify="space-between" gap={0}>
@@ -86,25 +105,46 @@ export function LinksGroup({
           </Box>
         </Group>
       </UnstyledButton>
-      {hasLinks ? (
-        <div style={{ overflowY: "auto", maxHeight: "calc(100vh - 100px)" }}>
+      {hasLinks && (
+        <div
+          style={{
+            overflowY: "auto",
+            maxHeight: "calc(100vh - 366px)",
+            overflowX: "hidden",
+          }}
+        >
           <Collapse
             in={opened}
-            style={{ textAlign: "left", paddingBottom: "150px" }} // Apply padding only here
+            style={{
+              textAlign: "left",
+            }}
           >
             {items}
           </Collapse>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
 
 export function NavbarLinksGroup({ onSceneChange }: NavbarLinksGroupProps) {
+  const [openedGroup, setOpenedGroup] = useState<string | null>(null);
+
+  const handleToggle = (label: string) => {
+    setOpenedGroup((prev) => (prev === label ? null : label));
+  };
+
   return (
     <Box mih={220}>
       {content.map((game) => (
-        <LinksGroup key={game.label} {...game} onSceneChange={onSceneChange} />
+        <LinksGroup
+          key={game.label}
+          label={game.label}
+          links={game.links}
+          onSceneChange={onSceneChange}
+          opened={openedGroup === game.label} // Control open state based on the label
+          onToggle={() => handleToggle(game.label)} // Toggle the clicked group
+        />
       ))}
     </Box>
   );

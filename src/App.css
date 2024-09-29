@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-size: medium;
 }
 
 .logo {
@@ -16,6 +17,32 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.primarycolor {
+  background-color: #11052C !important;
+}
+
+.secondarycolor {
+  background-color: #2c0857 !important;
+}
+
+.warningcolor {
+  background-color: #FFE459 !important;
+}
+
+@font-face {
+  font-family: 'RetroFont';
+  src: url('/assets/Fonts/Web437_IBM_VGA_8x16.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PDark';
+  src: url('/assets/Fonts/pdark.ttf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @keyframes logo-spin {
