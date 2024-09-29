@@ -83,17 +83,18 @@ foreach ($Game in $Games) {
         if ($null -eq $ExistingData) {
             Write-Host "`t`tNo previous data for $($Map.Name), creating new entry" -ForegroundColor Yellow
             $Root.Links += [PSCustomObject]@{
-                label     = $Map.Name
-                path      = "/" + $Game.Name + "/" + $Map.Name
-                renderer  = "ThreeJs"
-                speed     = 25
-                skybox    = "blue.png"
-                startPosX = 0
-                startPosY = 0
-                startPosZ = 0
-                startRotX = 0
-                startRotY = 0
-                startRotZ = 0
+                label      = $Map.Name
+                path       = "/" + $Game.Name + "/" + $Map.Name
+                renderer   = "ThreeJs"
+                cameraclip = 1000
+                speed      = 25
+                skybox     = "blue.png"
+                startPosX  = 0
+                startPosY  = 0
+                startPosZ  = 0
+                startRotX  = 0
+                startRotY  = 0
+                startRotZ  = 0
             }
 
             continue
@@ -101,17 +102,18 @@ foreach ($Game in $Games) {
 
         Write-Host "`t`tPrevious data found for $($Map.Name), adding to links" -ForegroundColor Green
         $Root.Links += [PSCustomObject]@{
-            label     = $ExistingData.label
-            path      = $ExistingData.Path
-            renderer  = $ExistingData.renderer
-            speed     = $ExistingData.speed
-            skybox    = $ExistingData.skybox
-            startPosX = $ExistingData.startPosX 
-            startPosY = $ExistingData.startPosY 
-            startPosZ = $ExistingData.startPosZ 
-            startRotX = $ExistingData.startRotX 
-            startRotY = $ExistingData.startRotY
-            startRotZ = $ExistingData.startRotZ
+            label      = $ExistingData.label
+            path       = $ExistingData.Path
+            renderer   = $ExistingData.renderer
+            cameraclip = $ExistingData.cameraclip
+            speed      = $ExistingData.speed
+            skybox     = $ExistingData.skybox
+            startPosX  = $ExistingData.startPosX 
+            startPosY  = $ExistingData.startPosY 
+            startPosZ  = $ExistingData.startPosZ 
+            startRotX  = $ExistingData.startRotX 
+            startRotY  = $ExistingData.startRotY
+            startRotZ  = $ExistingData.startRotZ
         }
 
     }

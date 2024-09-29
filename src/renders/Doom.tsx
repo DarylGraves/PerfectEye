@@ -5,6 +5,7 @@ import { GLTFLoader } from "three-stdlib";
 
 //TODO: 4 - Before Prod remove /PerfectEye/ from all download paths.
 
+//TODO: 1 - Why do we have an interface for scene probs when we have Scene.tsx?
 interface SceneProps {
   scene: {
     name: string;
@@ -22,13 +23,13 @@ interface SceneProps {
   };
 }
 
-const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
+const Doom: React.FC<SceneProps> = ({ scene }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<string[]>([]);
   let controls: PointerLockControls;
   let moveSpeed = scene.speed; // Initial movement speed
-  const velocity = new THREE.Vector3();
   const cameraclipdistance = scene.cameraclip;
+  const velocity = new THREE.Vector3();
   const keys = { w: false, a: false, s: false, d: false }; // Track which keys are pressed
   let isShiftPressed = false; // Track the state of the shift key
   const clock = new THREE.Clock(); // Create a clock to track delta time
@@ -174,10 +175,9 @@ const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
     initMovement(camera, renderer.domElement);
 
     // Lights
-    // const light = new THREE.HemisphereLight(0xffffff, 0x444444, 2); // Bright sky color, dim ground color
-    // const light = new THREE.AmbientLight(0xffffff, 2);
-    // light.position.set(0, 1, 0);
-    // threeScene.add(light);
+    const light = new THREE.AmbientLight(0xffffff, 2);
+    light.position.set(0, 1, 0);
+    threeScene.add(light);
 
     // Skybox
     const skyboxLoader = new THREE.TextureLoader();
@@ -198,7 +198,6 @@ const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
         fileUrl,
         (gltf) => {
           const model = gltf.scene;
-
           // Traverse through the model to find meshes and process materials
           model.traverse((node: THREE.Object3D) => {
             if ((node as THREE.Mesh).isMesh) {
@@ -289,8 +288,19 @@ const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
       }
 
       renderer.render(threeScene, camera);
-      //   console.log("Camera coordinates:", camera.position);
-      //   console.log("Camera rotation:", camera.rotation);
+      console.log(
+        "Camera coordinates:",
+        camera.position.x,
+        camera.position.y,
+        camera.position.z
+      );
+      console.log(
+        "Camera rotation:",
+        camera.rotation.x,
+        camera.rotation.y,
+        camera.rotation.z
+      );
+      console.log("Camera Speed: ", moveSpeed);
     };
     animate();
 
@@ -317,4 +327,4 @@ const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
   return <div ref={mountRef} />;
 };
 
-export default N64_GEPD;
+export default Doom;

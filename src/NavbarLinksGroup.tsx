@@ -15,6 +15,7 @@ interface LinksGroupProps {
     label: string;
     path: string;
     renderer: string;
+    cameraclip: number;
     skybox: string;
     speed: number;
     startPosX: number;
@@ -50,6 +51,7 @@ export function LinksGroup({
             link.label,
             link.path,
             link.renderer,
+            link.cameraclip,
             link.speed,
             link.skybox,
             link.startPosX,

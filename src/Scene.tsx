@@ -2,6 +2,7 @@ class Scene {
   name: string;
   path: string;
   renderer: string;
+  cameraclip: number;
   speed: number;
   skybox: string;
   startPosX: number;
@@ -15,6 +16,7 @@ class Scene {
     name: string,
     path: string,
     renderer: string,
+    cameraclip: number,
     speed: number,
     skybox: string,
     startPosX: number,
@@ -26,8 +28,9 @@ class Scene {
   ) {
     this.name = name;
     this.path = path;
-    this.speed = speed;
     this.renderer = renderer;
+    this.cameraclip = cameraclip;
+    this.speed = speed;
     this.skybox = skybox;
     this.startPosX = startPosX;
     this.startPosY = startPosY;

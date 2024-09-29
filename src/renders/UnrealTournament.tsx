@@ -10,6 +10,7 @@ interface SceneProps {
     name: string;
     path: string;
     renderer: string;
+    cameraclip: number;
     speed: number;
     skybox: string;
     startPosX: number;
@@ -26,6 +27,7 @@ const UnrealTournament: React.FC<SceneProps> = ({ scene }) => {
   const [files, setFiles] = useState<string[]>([]);
   let controls: PointerLockControls;
   let moveSpeed = scene.speed; // Initial movement speed
+  const cameraclipdistance = scene.cameraclip;
   const velocity = new THREE.Vector3();
   const keys = { w: false, a: false, s: false, d: false }; // Track which keys are pressed
   let isShiftPressed = false; // Track the state of the shift key
@@ -159,7 +161,12 @@ const UnrealTournament: React.FC<SceneProps> = ({ scene }) => {
     const threeScene = new THREE.Scene();
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      width / height,
+      0.1,
+      cameraclipdistance
+    );
     camera.position.set(scene.startPosX, scene.startPosY, scene.startPosZ);
     camera.rotation.set(scene.startRotX, scene.startRotY, scene.startRotZ);
 
@@ -281,8 +288,8 @@ const UnrealTournament: React.FC<SceneProps> = ({ scene }) => {
       }
 
       renderer.render(threeScene, camera);
-      console.log("Camera coordinates:", camera.position);
-      console.log("Camera rotation:", camera.rotation);
+      // console.log("Camera coordinates:", camera.position);
+      // console.log("Camera rotation:", camera.rotation);
     };
     animate();
 
