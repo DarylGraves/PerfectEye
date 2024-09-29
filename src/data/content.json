@@ -2125,6 +2125,123 @@
     ]
   },
   {
+    "label": "Ultimate DOOM",
+    "links": [
+      {
+        "label": "E1M1 - Hangar",
+        "path": "/Ultimate DOOM/E1M1 - Hangar",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": 464.57967878847035,
+        "startPosY": 169.51232122766223,
+        "startPosZ": -156.31999827747708,
+        "startRotX": 3.1075923236216143,
+        "startRotY": -0.004404799192899859,
+        "startRotZ": 3.141442831712274
+      },
+      {
+        "label": "E1M2 - Nuclear Plant",
+        "path": "/Ultimate DOOM/E1M2 - Nuclear Plant",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": -92.40771541964013,
+        "startPosY": 304.3497631616673,
+        "startPosZ": -1134.2490996113677,
+        "startRotX": -3.1055857487581986,
+        "startRotY": -0.019579957298341482,
+        "startRotZ": -3.1408873802728645
+      },
+      {
+        "label": "E1M3 - Toxin Refinery",
+        "path": "/Ultimate DOOM/E1M3 - Toxin Refinery",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": 323.0801360795424,
+        "startPosY": 144.4242411243977,
+        "startPosZ": -1512.7736793544514,
+        "startRotX": -3.0895846200174666,
+        "startRotY": -0.01756887123265097,
+        "startRotZ": -3.1406781537319746
+      },
+      {
+        "label": "E1M4 - Command Control",
+        "path": "/Ultimate DOOM/E1M4 - Command Control",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": -1809.9824750596576,
+        "startPosY": 108.95491530858891,
+        "startPosZ": 371.1083734721051,
+        "startRotX": 0.3323709873336552,
+        "startRotY": -1.509465897833451,
+        "startRotZ": 0.3317909891832139
+      },
+      {
+        "label": "E1M5 - Phobos Lab",
+        "path": "/Ultimate DOOM/E1M5 - Phobos Lab",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": -31.817206738591054,
+        "startPosY": 266.4960048975576,
+        "startPosZ": -1549.2417080709347,
+        "startRotX": -3.131579330693473,
+        "startRotY": -0.051590071687547534,
+        "startRotZ": -3.141076277453499
+      },
+      {
+        "label": "E1M6 - Central Processing",
+        "path": "/Ultimate DOOM/E1M6 - Central Processing",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": 663.7191458986824,
+        "startPosY": 176.52573329342803,
+        "startPosZ": -1354.7055027440074,
+        "startRotX": -3.1114963663475828,
+        "startRotY": -0.08000064117733302,
+        "startRotZ": -3.1391867769630277
+      },
+      {
+        "label": "E1M7 - Computer Station",
+        "path": "/Ultimate DOOM/E1M7 - Computer Station",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "black.png",
+        "startPosX": 29.740099730743037,
+        "startPosY": 86.15018995544571,
+        "startPosZ": 1667.8500408109344,
+        "startRotX": -0.0960004840320309,
+        "startRotY": 0.0031706405040069947,
+        "startRotZ": 0.0003053210360989433
+      },
+      {
+        "label": "E1M8 - Phobos Anomaly",
+        "path": "/Ultimate DOOM/E1M8 - Phobos Anomaly",
+        "renderer": "Doom",
+        "cameraclip": 1000000,
+        "speed": 252.5,
+        "skybox": "blue.png",
+        "startPosX": 573.2169163795357,
+        "startPosY": 276.9626990377273,
+        "startPosZ": -3315.8864111992216,
+        "startRotX": -1.6296379283251794,
+        "startRotY": 1.3764556999021869,
+        "startRotZ": 1.6307641811559173
+      }
+    ]
+  },
+  {
     "label": "Unreal Tournament",
     "links": [
       {
@@ -2140,25 +2257,6 @@
         "startRotX": -0.92017899631038,
         "startRotY": 0.9734782892324935,
         "startRotZ": 0.8267266151180125
-      }
-    ]
-  },
-  {
-    "label": "Ultimate DOOM",
-    "links": [
-      {
-        "label": "E1M1 - Hangar",
-        "path": "/Ultimate DOOM/E1M1",
-        "renderer": "Doom",
-        "cameraclip": 1000000,
-        "speed": 262.5,
-        "skybox": "blue.png",
-        "startPosX": 464.57967878847035,
-        "startPosY": 169.51232122766223,
-        "startPosZ": -156.31999827747708,
-        "startRotX": 3.1075923236216143,
-        "startRotY": -0.004404799192899859,
-        "startRotZ": 3.141442831712274
       }
     ]
   }

@@ -65,7 +65,7 @@ foreach ($Game in $Games) {
         links = @()
     }
 
-    $GameMaps = Get-ChildItem -Path $Game.FullName -Directory
+    $GameMaps = Get-ChildItem -Path $Game.FullName -Directory | Where-Object { $_.Name -notlike "_*" }
 
     if ($PreviousContent) {
         $PreviousContentGame = $PreviousContent | Where-Object { $_.label -eq $Game.Name }

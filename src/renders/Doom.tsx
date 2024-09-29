@@ -1,27 +1,64 @@
 import React, { useEffect, useRef, useState } from "react";
+import Scene from "../Scene";
 import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
-//TODO: 4 - Before Prod remove /PerfectEye/ from all download paths.
-
-//TODO: 1 - Why do we have an interface for scene probs when we have Scene.tsx?
 interface SceneProps {
-  scene: {
-    name: string;
-    path: string;
-    renderer: string;
-    cameraclip: number;
-    speed: number;
-    skybox: string;
-    startPosX: number;
-    startPosY: number;
-    startPosZ: number;
-    startRotX: number;
-    startRotY: number;
-    startRotZ: number;
-  };
+  scene: Scene;
 }
+
+type AnimatedTextureKey = keyof typeof animatedTextures;
+
+function isAnimatedTextureKey(key: string): key is AnimatedTextureKey {
+  return key in animatedTextures;
+}
+
+const skyBoxes = ["F_SKY1"];
+
+// Define animated texture sequences
+const animatedTextures = {
+  NUKAGE: [
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE1.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE2.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE3.png",
+  ],
+  BLOOD: [
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD1.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD2.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD3.png",
+  ],
+  FWATER: [
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER1.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER2.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER3.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER4.png",
+  ],
+  LAVA: [
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA1.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA2.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA3.png",
+    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA4.png",
+  ],
+};
+
+// Map frame-specific texture names to the corresponding animation sequence
+const textureFrameMapping: { [key: string]: AnimatedTextureKey } = {
+  NUKAGE1: "NUKAGE",
+  NUKAGE2: "NUKAGE",
+  NUKAGE3: "NUKAGE",
+  FWATER1: "FWATER",
+  FWATER2: "FWATER",
+  FWATER3: "FWATER",
+  FWATER4: "FWATER",
+  LAVA1: "LAVA",
+  LAVA2: "LAVA",
+  LAVA3: "LAVA",
+  LAVA4: "LAVA",
+  BLOOD1: "BLOOD",
+  BLOOD2: "BLOOD",
+  BLOOD3: "BLOOD",
+};
 
 const Doom: React.FC<SceneProps> = ({ scene }) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -34,19 +71,83 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
   let isShiftPressed = false; // Track the state of the shift key
   const clock = new THREE.Clock(); // Create a clock to track delta time
 
+  // Function to animate textures based on predefined sequences
+  function animateTexture(
+    material: THREE.MeshStandardMaterial | THREE.MeshBasicMaterial,
+    textures: string[],
+    frameRate = 500
+  ) {
+    const loader = new THREE.TextureLoader();
+    const loadedTextures: THREE.Texture[] = [];
+
+    // Preload all the textures
+    textures.forEach((textureUrl, index) => {
+      loader.load(
+        textureUrl,
+        (texture) => {
+          // Set texture properties to prevent blurring or zooming issues
+          texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+          texture.repeat.set(1, 1);
+          texture.magFilter = THREE.NearestFilter;
+          texture.minFilter = THREE.NearestFilter;
+          texture.anisotropy = 1;
+          texture.needsUpdate = true;
+          loadedTextures[index] = texture; // Store the texture in the array
+        },
+        undefined,
+        (error) => {}
+      );
+    });
+
+    let currentFrame = 0;
+
+    setInterval(() => {
+      if (loadedTextures.length === textures.length) {
+        // Ensure all textures are loaded
+        material.map = loadedTextures[currentFrame];
+        material.map.needsUpdate = true; // Ensure the material updates
+        material.needsUpdate = true; // Update the material itself
+        currentFrame = (currentFrame + 1) % textures.length; // Loop through the frames
+      }
+    }, frameRate); // frameRate in milliseconds
+  }
+
+  // Process materials and apply animations where necessary
+  function processMaterial(
+    material: THREE.MeshStandardMaterial | THREE.MeshBasicMaterial
+  ) {
+    // Set default material properties
+    material.premultipliedAlpha = true;
+    material.depthWrite = true;
+    material.side = THREE.DoubleSide;
+    material.alphaTest = 0.5;
+    material.opacity = 1.0;
+
+    // Convert material name to uppercase for case-insensitive matching
+    const materialNameUpper = material.name.toUpperCase();
+
+    // if texture is called F_SKY1, don't render it as this is replaced by the skybox
+    if (materialNameUpper.includes("F_SKY")) {
+      material.visible = false;
+    }
+
+    Object.keys(textureFrameMapping).forEach((frameName) => {
+      const frameNameUpper = frameName.toUpperCase();
+      if (materialNameUpper.includes(frameNameUpper)) {
+        const textureKey = textureFrameMapping[frameName];
+        animateTexture(material, animatedTextures[textureKey]);
+      }
+    });
+  }
+
   // Handle keyboard input for movement
   const initMovement = (
     camera: THREE.PerspectiveCamera,
     domElement: HTMLElement
   ) => {
     controls = new PointerLockControls(camera, domElement);
+    domElement.addEventListener("click", () => controls.lock());
 
-    // Lock the pointer and start controlling the camera when the user clicks
-    domElement.addEventListener("click", () => {
-      controls.lock();
-    });
-
-    // Handle keyboard input for movement
     document.addEventListener("keydown", (event) => {
       switch (event.code) {
         case "KeyW":
@@ -89,10 +190,9 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
       }
     });
 
-    // Handle mouse wheel to adjust speed
     domElement.addEventListener("wheel", (event) => {
       if (event.deltaY < 0) {
-        moveSpeed += scene.speed * 0.25; // Scroll up to increase speed
+        moveSpeed += scene.speed * 0.25;
       } else if (event.deltaY > 0) {
         moveSpeed = Math.max(1, moveSpeed - scene.speed * 0.25);
       }
@@ -101,30 +201,16 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
 
   const updateMovement = (camera: THREE.PerspectiveCamera, delta: number) => {
     if (!controls || !controls.isLocked) return;
-
-    // Reset velocity
     velocity.set(0, 0, 0);
-
-    // Get the camera's forward direction (for W and S)
     const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(
       camera.quaternion
     );
-
-    // Get the camera's right direction (for A and D)
     const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
-
-    // Adjust movement speed based on whether Shift is pressed
     const currentMoveSpeed = isShiftPressed ? moveSpeed * 2 : moveSpeed;
-
-    // Handle forward/backward movement with delta time
-    if (keys.w) velocity.addScaledVector(forward, currentMoveSpeed * delta); // Move forward
-    if (keys.s) velocity.addScaledVector(forward, -currentMoveSpeed * delta); // Move backward
-
-    // Handle left/right strafing movement with delta time
-    if (keys.a) velocity.addScaledVector(right, -currentMoveSpeed * delta); // Move left
-    if (keys.d) velocity.addScaledVector(right, currentMoveSpeed * delta); // Move right
-
-    // Apply velocity to move the camera
+    if (keys.w) velocity.addScaledVector(forward, currentMoveSpeed * delta);
+    if (keys.s) velocity.addScaledVector(forward, -currentMoveSpeed * delta);
+    if (keys.a) velocity.addScaledVector(right, -currentMoveSpeed * delta);
+    if (keys.d) velocity.addScaledVector(right, currentMoveSpeed * delta);
     controls.getObject().position.add(velocity);
   };
 
@@ -144,24 +230,18 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
     const width = mount.clientWidth || window.innerWidth;
     const height = mount.clientHeight || window.innerHeight;
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setClearColor(0xaaaaaa); // Light gray background
+    renderer.setClearColor(0xaaaaaa);
     mount.appendChild(renderer.domElement);
-
-    // Style the canvas
     renderer.domElement.style.position = "absolute";
     renderer.domElement.style.top = "0";
     renderer.domElement.style.left = "0";
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
 
-    // Scene
     const threeScene = new THREE.Scene();
-
-    // Camera
     const camera = new THREE.PerspectiveCamera(
       80,
       width / height,
@@ -171,50 +251,48 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
     camera.position.set(scene.startPosX, scene.startPosY, scene.startPosZ);
     camera.rotation.set(scene.startRotX, scene.startRotY, scene.startRotZ);
 
-    // Initialize Pointer Lock and movement
     initMovement(camera, renderer.domElement);
 
-    // Lights
     const light = new THREE.AmbientLight(0xffffff, 2);
     light.position.set(0, 1, 0);
     threeScene.add(light);
 
-    // Skybox
     const skyboxLoader = new THREE.TextureLoader();
     skyboxLoader.load(
       `/PerfectEye/assets/Skyboxes/${scene.skybox}`,
-      function (texture) {
+      (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         threeScene.background = texture;
       }
     );
 
-    // Model Loading
     const loader = new GLTFLoader();
-
     files.forEach((fileName) => {
       const fileUrl = `/PerfectEye/assets/Games${scene.path}/${fileName}`;
       loader.load(
         fileUrl,
         (gltf) => {
           const model = gltf.scene;
-          // Traverse through the model to find meshes and process materials
           model.traverse((node: THREE.Object3D) => {
             if ((node as THREE.Mesh).isMesh) {
               const mesh = node as THREE.Mesh;
-
-              // Check if the mesh has a material and process it
               if (Array.isArray(mesh.material)) {
-                mesh.material.forEach((material: THREE.Material) => {
-                  processMaterial(material);
+                mesh.material.forEach((material) => {
+                  if (
+                    material instanceof THREE.MeshStandardMaterial ||
+                    material instanceof THREE.MeshBasicMaterial
+                  ) {
+                    processMaterial(material);
+                  }
                 });
-              } else {
-                processMaterial(mesh.material as THREE.Material);
+              } else if (
+                mesh.material instanceof THREE.MeshStandardMaterial ||
+                mesh.material instanceof THREE.MeshBasicMaterial
+              ) {
+                processMaterial(mesh.material);
               }
             }
           });
-
-          // Add the processed model to the scene
           threeScene.add(model);
         },
         (error) => {
@@ -223,44 +301,16 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
       );
     });
 
-    function processMaterial(material: THREE.Material) {
-      // Set default material properties
-      material.premultipliedAlpha = true;
-      material.depthWrite = true;
-      material.side = THREE.DoubleSide;
-      material.opacity = 1.0;
-    }
-
-    // Animation Loop
     const animate = () => {
       requestAnimationFrame(animate);
-
-      // Get the delta time
       const delta = clock.getDelta();
-
-      // Update camera movement if pointer lock is active
-      if (isControlsLocked()) {
-        updateMovement(camera, delta);
-      }
-
+      if (isControlsLocked()) updateMovement(camera, delta);
       renderer.render(threeScene, camera);
-      console.log(
-        "Camera coordinates:",
-        camera.position.x,
-        camera.position.y,
-        camera.position.z
-      );
-      console.log(
-        "Camera rotation:",
-        camera.rotation.x,
-        camera.rotation.y,
-        camera.rotation.z
-      );
-      console.log("Camera Speed: ", moveSpeed);
+      // console.log("Camera coordinates:", camera.position);
+      // console.log("Camera rotation:", camera.rotation);
     };
     animate();
 
-    // Handle Resize
     const handleResize = () => {
       const width = mount.clientWidth || window.innerWidth;
       const height = mount.clientHeight || window.innerHeight;
@@ -270,7 +320,6 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
     };
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
       if (mount.contains(renderer.domElement)) {
