@@ -193,7 +193,7 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
     const loader = new GLTFLoader();
 
     files.forEach((fileName) => {
-      const fileUrl = `/PerfectEye/assets${scene.path}/${fileName}`;
+      const fileUrl = `/PerfectEye/assets/Games${scene.path}/${fileName}`;
       loader.load(
         fileUrl,
         (gltf) => {

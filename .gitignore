@@ -24,6 +24,4 @@ dist-ssr
 *.sw?
 
 # Don't upload all the maps, just the Skyboxes
-public/assets/*
-!public/assets/Skyboxes/
-!public/assets/Fonts/
+public/assets/Games*

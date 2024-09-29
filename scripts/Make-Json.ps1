@@ -4,8 +4,8 @@
 ########################################################################################
 #   Variables
 ########################################################################################
-$Directory = "F:\Dev\PerfectEye\public\assets\" # Where all the maps are
-$OutLocation = "F:\Dev\PerfectEye\src\data\"
+$Directory = "F:\Dev\PerfectEye\public\assets\Games\" # Where all the maps are
+$OutLocation = "F:\Dev\PerfectEye\src\data\" # Where the content json goes
 $Json = @()
 
 # Spiro names the folders differently to the website so these need to be renamed
