@@ -3,7 +3,7 @@ name: Deploy to Staging Site
 on:
   push:
     branches:
-      -React
+      - React
 
 jobs:
   build:
