@@ -30,4 +30,4 @@ jobs:
     - name: Build the new Docker image
       run: docker build . --file Dockerfile --tag perfecteyedev:latest
     - name: Start the new image
-      run: docker run -d --name PerfectEyeDev -p 8080:3000 --restart always perfecteyedev:latest  
+      run: docker run -d --name PerfectEyeDev -p 8181:3000 --restart always perfecteyedev:latest  
