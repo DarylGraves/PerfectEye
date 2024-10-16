@@ -8,10 +8,10 @@ WORKDIR /app
 RUN npm install -g serve
 
 # copy only the build directory contents
-COPY build ./build
+COPY dist ./dist
 
 # set working directory to build directory
-WORKDIR /app/build
+WORKDIR /app/dist
 
 # start app using serve
 CMD ["serve", "-s", "."]
