@@ -3,7 +3,7 @@ import { Group, Box, Collapse, Text, UnstyledButton } from "@mantine/core";
 import classes from "./NavbarLinksGroup.module.css";
 import content from "./data/content.json";
 import Scene from "./Scene"; // Import Scene correctly
-import "./app.css";
+import "./App.css";
 
 type NavbarLinksGroupProps = {
   onSceneChange: (scene: Scene) => void;
