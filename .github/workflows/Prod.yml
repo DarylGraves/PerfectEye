@@ -27,7 +27,7 @@ jobs:
         FTP_PORT: ${{ secrets.PORT}}
       run: |
         expect << EOF
-        spawn sftp -P $FTP_PORT $FTP_USERNAME@$FTP_SERVER
+        spawn sftp -P $FTP_PORT $FTP_USERNAME@$FTP_ADDRESS
         expect "password:"
         send "$FTP_PASSWORD\r"
         expect "sftp>"
