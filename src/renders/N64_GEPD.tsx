@@ -3,8 +3,6 @@ import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
-//TODO: 4 - Before Prod remove /PerfectEye/ from all download paths.
-
 interface SceneProps {
   scene: {
     name: string;
@@ -181,19 +179,16 @@ const N64_GEPD: React.FC<SceneProps> = ({ scene }) => {
 
     // Skybox
     const skyboxLoader = new THREE.TextureLoader();
-    skyboxLoader.load(
-      `/PerfectEye/assets/Skyboxes/${scene.skybox}`,
-      function (texture) {
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-        threeScene.background = texture;
-      }
-    );
+    skyboxLoader.load(`/assets/Skyboxes/${scene.skybox}`, function (texture) {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      threeScene.background = texture;
+    });
 
     // Model Loading
     const loader = new GLTFLoader();
 
     files.forEach((fileName) => {
-      const fileUrl = `/PerfectEye/assets/Games${scene.path}/${fileName}`;
+      const fileUrl = `/assets/Games${scene.path}/${fileName}`;
       loader.load(
         fileUrl,
         (gltf) => {

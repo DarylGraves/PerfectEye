@@ -15,26 +15,26 @@ type AnimatedTextureKey = keyof typeof animatedTextures;
 // Define animated texture sequences
 const animatedTextures = {
   NUKAGE: [
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE1.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE2.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE3.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE1.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE2.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/NUKAGE3.png",
   ],
   BLOOD: [
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD1.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD2.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD3.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD1.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD2.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/BLOOD3.png",
   ],
   FWATER: [
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER1.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER2.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER3.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER4.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER1.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER2.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER3.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/FWATER4.png",
   ],
   LAVA: [
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA1.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA2.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA3.png",
-    "/PerfectEye/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA4.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA1.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA2.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA3.png",
+    "/assets/Games/Ultimate DOOM/_AnimatedTextures/LAVA4.png",
   ],
 };
 
@@ -253,17 +253,14 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
     threeScene.add(light);
 
     const skyboxLoader = new THREE.TextureLoader();
-    skyboxLoader.load(
-      `/PerfectEye/assets/Skyboxes/${scene.skybox}`,
-      (texture) => {
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-        threeScene.background = texture;
-      }
-    );
+    skyboxLoader.load(`/assets/Skyboxes/${scene.skybox}`, (texture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      threeScene.background = texture;
+    });
 
     const loader = new GLTFLoader();
     files.forEach((fileName) => {
-      const fileUrl = `/PerfectEye/assets/Games${scene.path}/${fileName}`;
+      const fileUrl = `/assets/Games${scene.path}/${fileName}`;
       loader.load(
         fileUrl,
         (gltf) => {

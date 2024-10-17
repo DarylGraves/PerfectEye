@@ -23,13 +23,13 @@ export default function Nostalgia({
 
         switch (game) {
           case "Perfect Dark":
-            setAudioFilePath("/PerfectEye/assets/Music/Perfect Dark.mp3");
+            setAudioFilePath("/assets/Music/Perfect Dark.mp3");
             break;
           case "GoldenEye":
-            setAudioFilePath("/PerfectEye/assets/Music/GoldenEye.mp3");
+            setAudioFilePath("/assets/Music/GoldenEye.mp3");
             break;
           case "Unreal Tournament":
-            setAudioFilePath("/PerfectEye/assets/Music/Unreal Tournament.mp3");
+            setAudioFilePath("/assets/Music/Unreal Tournament.mp3");
             break;
           default:
             setAudioFilePath(""); // Reset the audio file path for unknown cases
