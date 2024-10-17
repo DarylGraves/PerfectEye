@@ -27,13 +27,14 @@ jobs:
         FTP_PORT: ${{ secrets.PORT}}
       run: |
         expect << EOF
-        spawn sftp -o StrictHostKeyChecking=no -P $FTP_PORT $FTP_USERNAME@$FTP_ADDRESS
+        spawn sftp -o StrictHostKeyChecking=no -P $FTP_PORT $FTP_USERNAME@$FTP_SERVER
         expect "password:"
         send "$FTP_PASSWORD\r"
         expect "sftp>"
-        send "cd PerfectEye\r"  # Change to the correct remote directory
+        send "cd PerfectEye\r"
         expect "sftp>"
-        send "put -r ./dist/*\r"  # Upload files from local dist folder to remote path
+        send "put -r ./dist/*\r"
         expect "sftp>"
         send "bye\r"
+        expect eof
         EOF
