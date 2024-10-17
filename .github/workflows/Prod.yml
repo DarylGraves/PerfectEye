@@ -26,8 +26,6 @@ jobs:
         FTP_ADDRESS: ${{ secrets.SERVER }}
         FTP_PORT: ${{ secrets.PORT}}
       run: |
-        sudo apt-get install -y expect  # Install expect to handle password automation
-
         expect << EOF
         spawn sftp -P $SFTP_PORT $SFTP_USERNAME@$SFTP_SERVER
         expect "password:"
