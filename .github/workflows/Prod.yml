@@ -26,7 +26,15 @@ jobs:
         FTP_ADDRESS: ${{ secrets.SERVER }}
         FTP_PORT: ${{ secrets.PORT}}
       run: |
-        lftp -u $FTP_USERNAME,$FTP_PASSWORD ftp://$FTP_ADDRESS:$FTP_PORT <<EOF
-        mirror -R . /PerfectEye
-        bye
+        sudo apt-get install -y expect  # Install expect to handle password automation
+
+        expect << EOF
+        spawn sftp -P $SFTP_PORT $SFTP_USERNAME@$SFTP_SERVER
+        expect "password:"
+        send "$SFTP_PASSWORD\r"
+        expect "sftp>"
+        send "cd PerfectEye"  # Change to the correct remote directory
+        send "put -r ./dist\r"     # Upload your local directory (e.g., dist)
+        expect "sftp>"
+        send "bye\r"
         EOF
