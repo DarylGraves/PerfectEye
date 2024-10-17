@@ -31,8 +31,9 @@ jobs:
         expect "password:"
         send "$SFTP_PASSWORD\r"
         expect "sftp>"
-        send "cd PerfectEye"  # Change to the correct remote directory
-        send "put -r ./dist\r"     # Upload your local directory (e.g., dist)
+        send "cd PerfectEye\r"  # Change to the correct remote directory
+        expect "sftp>"
+        send "put -r ./dist/*\r"  # Upload files from local dist folder to remote path
         expect "sftp>"
         send "bye\r"
         EOF
