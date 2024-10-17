@@ -1,0 +1,32 @@
+name: Deploy to Staging Site
+
+on:
+  push:
+    branches:
+      - Main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Pull down code base
+      uses: actions/checkout@v3
+    - name: Retrieve Maps and Music
+      run: cp ${{ secrets.ASSETFILEURL }} .
+    - name: Install dependancies
+      run: npm ci
+    - name: Run Npm Build
+      run: CI='' npm run build
+    - name: Upload files to Production
+      env:
+        FTP_USERNAME: ${{ secrets.USERNAME }}
+        FTP_PASSWORD: ${{ secrets.PASSWORD }}
+        FTP_ADDRESS: ${{ secrets.SERVER }}
+        FTP_PORT: ${{ secrets.PORT}}
+      run: |
+        lftp -u $FTP_USERNAME,$FTP_PASSWORD ftp://$FTP_ADDRESS:$FTP_PORT <<EOF
+        mirror -R . /PerfectEye
+        bye
+        EOF
