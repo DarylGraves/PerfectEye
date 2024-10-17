@@ -13,12 +13,12 @@ jobs:
     steps:
     - name: Pull down code base
       uses: actions/checkout@v3
-    - name: Retrieve Maps and Music
-      run: cp ${{ secrets.ASSETFILEURL }} .
-    - name: Install dependancies
-      run: npm ci
-    - name: Run Npm Build
-      run: CI='' npm run build
+    #- name: Retrieve Maps and Music
+    #  run: cp ${{ secrets.ASSETFILEURL }} .
+    #- name: Install dependancies
+    #  run: npm ci
+    #- name: Run Npm Build
+    #  run: CI='' npm run build
     - name: Upload files to Production
       env:
         FTP_USERNAME: ${{ secrets.USERNAME }}
