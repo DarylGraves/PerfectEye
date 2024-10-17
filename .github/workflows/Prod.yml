@@ -27,9 +27,9 @@ jobs:
         FTP_PORT: ${{ secrets.PORT}}
       run: |
         expect << EOF
-        spawn sftp -P $SFTP_PORT $SFTP_USERNAME@$SFTP_SERVER
+        spawn sftp -P $FTP_PORT $FTP_USERNAME@$FTP_SERVER
         expect "password:"
-        send "$SFTP_PASSWORD\r"
+        send "$FTP_PASSWORD\r"
         expect "sftp>"
         send "cd PerfectEye\r"  # Change to the correct remote directory
         expect "sftp>"
