@@ -10,6 +10,7 @@ import Render from "./Render";
 import Navbar from "./Navbar";
 import Scene from "./Scene";
 import { useState } from "react";
+import LoadingScreen from "./LoadingScreen";
 
 const theme = createTheme({
   fontFamily: "RetroFont, Montserrat, sans-serif",
@@ -61,6 +62,7 @@ function App() {
               width: "100%",
               height: "100%",
               display: "flex",
+              marginLeft: navBarWidth,
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -68,7 +70,8 @@ function App() {
             {currentScene ? (
               <Render setupScene={currentScene!} />
             ) : (
-              "Select a map from the left to begin"
+              // "Select a map from the left to begin"
+              <LoadingScreen />
             )}
           </div>
         </AppShell.Main>
