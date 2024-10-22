@@ -6,8 +6,10 @@ const BootUpCanvas: React.FC = () => {
   // UseRef for cursor tracking to ensure persistence across renders
   const cursorX = useRef(20);
   const cursorY = useRef(50);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Track the interval to ensure it's cleared
-  const cursorBlinkRef = useRef<NodeJS.Timeout | null>(null); // Track cursor blink interval
+
+  const intervalRef = useRef<number | null>(null); // Track the interval to ensure it's cleared
+  const cursorBlinkRef = useRef<number | null>(null); // Track cursor blink interval
+
   const cursorVisible = useRef(true); // Track if the cursor is visible or not
 
   useEffect(() => {
