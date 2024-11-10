@@ -37,8 +37,8 @@ export default function Navbar({ onSceneChange }: NavbarProps) {
           style={{
             marginBottom: 0,
             marginTop: 0,
-            paddingTop: 10,
-            paddingBottom: 10,
+            paddingTop: 0,
+            paddingBottom: 0,
             borderBottom: "1px solid gray",
             fontFamily: "PDark",
             fontSize: "28px",
