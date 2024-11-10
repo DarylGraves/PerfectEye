@@ -298,8 +298,8 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
       const delta = clock.getDelta();
       if (isControlsLocked()) updateMovement(camera, delta);
       renderer.render(threeScene, camera);
-      // console.log("Camera coordinates:", camera.position);
-      // console.log("Camera rotation:", camera.rotation);
+      console.log("Camera coordinates:", camera.position);
+      console.log("Camera rotation:", camera.rotation);
     };
     animate();
 
