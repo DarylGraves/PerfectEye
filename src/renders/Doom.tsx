@@ -4,6 +4,8 @@ import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
+//TODO: DOOM Skyboxes
+
 interface SceneProps {
   scene: Scene;
 }
