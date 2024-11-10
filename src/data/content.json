@@ -3063,12 +3063,12 @@
         "cameraclip": 1000000,
         "speed": 252.5,
         "skybox": "black.png",
-        "startPosX": 0,
-        "startPosY": 0,
-        "startPosZ": 0,
-        "startRotX": 0,
-        "startRotY": 0,
-        "startRotZ": 0
+        "startPosX": 7.671643196523415,
+        "startPosY": 104.85251503804085,
+        "startPosZ": 310.8155553237047,
+        "startRotX": -0.13203396322254835,
+        "startRotY": 0.022616185656171534,
+        "startRotZ": 0.0030033136325491815
       }
     ]
   },
