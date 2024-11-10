@@ -248,7 +248,7 @@ const Doom: React.FC<SceneProps> = ({ scene }) => {
 
     initMovement(camera, renderer.domElement);
 
-    const light = new THREE.AmbientLight(0xffffff, 2);
+    const light = new THREE.AmbientLight(0xffffff, 0.75);
     light.position.set(0, 1, 0);
     threeScene.add(light);
 
