@@ -3,9 +3,6 @@ import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
-//TODO: CounterStrike - Estate has weird lights?!
-//TODO: CounterStrike - Storm has lots of purple boxes?!
-
 interface SceneProps {
   scene: {
     name: string;
@@ -232,6 +229,7 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
       material.depthWrite = true;
       material.side = THREE.DoubleSide;
       material.opacity = 1.0;
+      material.blending = THREE.NormalBlending;
 
       // Set base color to [0.8, 0.8, 0.8]
       if (
@@ -260,21 +258,20 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
         );
       }
 
-      // Check material name for texture addressing modes
-      const name = material.name;
-
-      // Handle materials with "TopFlag" or "UNTEXTURED" in their names
-      if (name.includes("TopFlag") || name.includes("UNTEXTURED")) {
-        material.polygonOffset = true;
-        material.polygonOffsetFactor = -1;
-        material.polygonOffsetUnits = -1;
+      // Hide the cone which is the light texture - Most obvious in the "Estate" level
+      if (
+        material.name === "material_79.004" ||
+        material.name === "material_43.006"
+      ) {
+        material.opacity = 0.5;
+        material.blending = THREE.NormalBlending;
       }
 
-      // Handle alpha materials based on file name
-      if (name.includes("TopFlag") || name.includes("Transparent")) {
-        material.transparent = true;
-        material.alphaTest = 0.003;
-        material.depthWrite = false;
+      // Hide the purple boxes in Piranesi (why are there purple boxes?!)
+      console.log("Material Name", material.name);
+      if (material.name === "material_48.015") {
+        material.opacity = 0.5;
+        material.blending = THREE.NormalBlending;
       }
     }
 
@@ -291,8 +288,8 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
       }
 
       renderer.render(threeScene, camera);
-      console.log("Camera coordinates:", camera.position);
-      console.log("Camera rotation:", camera.rotation);
+      // console.log("Camera coordinates:", camera.position);
+      // console.log("Camera rotation:", camera.rotation);
     };
     animate();
 
