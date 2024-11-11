@@ -3,8 +3,7 @@ import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import { GLTFLoader } from "three-stdlib";
 
-//TODO: CounterStrike - Maps need start locatins. Also could probably clean up the rendering.
-//TODO: CounterStrike - Ladders and Gates don't have textures (Piranesi) - Lights don't have opacity (Chateau I think?)
+//TODO: CounterStrike - Estate has weird lights?!
 //TODO: CounterStrike - Storm has lots of purple boxes?!
 
 interface SceneProps {
@@ -228,6 +227,8 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
     function processMaterial(material: THREE.Material) {
       // Set default material properties
       material.premultipliedAlpha = true;
+      material.alphaTest = 1;
+      material.transparent = true;
       material.depthWrite = true;
       material.side = THREE.DoubleSide;
       material.opacity = 1.0;
