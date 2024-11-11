@@ -267,7 +267,7 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
         material.blending = THREE.NormalBlending;
       }
 
-      // Hide the purple boxes in Piranesi (why are there purple boxes?!)
+      // Hide the purple boxes in Storm (why were there purple boxes?!)
       console.log("Material Name", material.name);
       if (material.name === "material_48.015") {
         material.opacity = 0.5;
