@@ -4,6 +4,8 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import { GLTFLoader } from "three-stdlib";
 
 //TODO: CounterStrike - Maps need start locatins. Also could probably clean up the rendering.
+//TODO: CounterStrike - Ladders and Gates don't have textures (Piranesi) - Lights don't have opacity (Chateau I think?)
+//TODO: CounterStrike - Storm has lots of purple boxes?!
 
 interface SceneProps {
   scene: {
@@ -288,8 +290,8 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
       }
 
       renderer.render(threeScene, camera);
-      // console.log("Camera coordinates:", camera.position);
-      // console.log("Camera rotation:", camera.rotation);
+      console.log("Camera coordinates:", camera.position);
+      console.log("Camera rotation:", camera.rotation);
     };
     animate();
 
