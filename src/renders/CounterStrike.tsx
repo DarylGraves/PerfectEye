@@ -231,33 +231,15 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
       material.opacity = 1.0;
       material.blending = THREE.NormalBlending;
 
-      // Set base color to [0.8, 0.8, 0.8]
-      if (
-        material instanceof THREE.MeshBasicMaterial ||
-        material instanceof THREE.MeshStandardMaterial ||
-        material instanceof THREE.MeshPhongMaterial ||
-        material instanceof THREE.MeshLambertMaterial ||
-        material instanceof THREE.MeshPhysicalMaterial ||
-        material instanceof THREE.MeshToonMaterial
-      ) {
-        material.color.setRGB(0.8, 0.8, 0.8);
-      } else if (material instanceof THREE.MeshMatcapMaterial) {
-        // MeshMatcapMaterial uses matcap texture instead of color
-        // You may need to adjust the matcap texture accordingly
-      } else if (material instanceof THREE.MeshDepthMaterial) {
-        // MeshDepthMaterial doesn't support color
-      } else if (material instanceof THREE.ShaderMaterial) {
-        // For ShaderMaterial, you might need to modify uniforms
-        if (material.uniforms && material.uniforms.color) {
-          material.uniforms.color.value.setRGB(0.8, 0.8, 0.8);
-        }
-      } else {
-        // Handle other material types or log a warning
-        console.warn(
-          `Material type not recognized for setting base color: ${material.type}`
-        );
+      // Make the Windows in Office transparent
+      if (material.name === "material_99.007") {
+        material.transparent = true;
+        material.opacity = 0.25;
+        material.alphaTest = 0.0;
+        material.depthWrite = false;
+        material.depthTest = true;
+        material.side = THREE.DoubleSide; // Use FrontSide for more consistent transparency
       }
-
       // Hide the cone which is the light texture - Most obvious in the "Estate" level
       if (
         material.name === "material_79.004" ||
