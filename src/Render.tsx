@@ -4,9 +4,13 @@ import UnrealTournament from "./renders/UnrealTournament";
 import Doom from "./renders/Doom";
 import ThreeJs from "./renders/ThreeJs";
 import CounterStrike from "./renders/CounterStrike";
+import HalfLife from "./renders/HalfLife";
 
 export default function Render({ setupScene }: { setupScene: Scene }) {
   switch (setupScene.renderer) {
+    case "HalfLife":
+      return <HalfLife scene={setupScene} />;
+      break;
     case "CounterStrike":
       return <CounterStrike scene={setupScene} />;
       break;

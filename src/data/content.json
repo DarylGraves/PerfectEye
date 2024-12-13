@@ -154,7 +154,7 @@
         "startPosZ": 1053.2890362706096,
         "startRotX": -0.004000675046668075,
         "startRotY": -0.01837046737792691,
-        "startRotZ": -0.00007349052872498032
+        "startRotZ": -7.349052872498032e-5
       },
       {
         "label": "Inferno",
@@ -345,12 +345,12 @@
         "cameraclip": 100000,
         "speed": 250,
         "skybox": "blue.png",
-        "startPosX": -1512.9425128841003,
-        "startPosY": -191.4356587926798,
-        "startPosZ": -701.4229731427812,
-        "startRotX": -0.40960529180628497,
-        "startRotY": -1.4500210768447142,
-        "startRotZ": -0.40694117786863415
+        "startPosX": null,
+        "startPosY": null,
+        "startPosZ": null,
+        "startRotX": null,
+        "startRotY": null,
+        "startRotZ": null
       }
     ]
   },

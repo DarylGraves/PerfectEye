@@ -20,10 +20,7 @@ interface SceneProps {
   };
 }
 
-//TODO: Counter-Strike Add Skyboxes: https://developer.valvesoftware.com/wiki/Counter-Strike_Sky_List
-//TODO: Counter-Strike Office Projector is weird
-
-const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
+const HalfLife: React.FC<SceneProps> = ({ scene }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<string[]>([]);
   let controls: PointerLockControls;
@@ -175,7 +172,7 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
     initMovement(camera, renderer.domElement);
 
     // Lights
-    const light = new THREE.AmbientLight(0xffffff, 1);
+    const light = new THREE.AmbientLight(0xffffff, 2);
     light.position.set(0, 1, 0);
     threeScene.add(light);
 
@@ -233,31 +230,6 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
       material.side = THREE.DoubleSide;
       material.opacity = 1.0;
       material.blending = THREE.NormalBlending;
-
-      // Make the Windows in Office transparent
-      if (material.name === "material_99.007") {
-        material.transparent = true;
-        material.opacity = 0.25;
-        material.alphaTest = 0.0;
-        material.depthWrite = false;
-        material.depthTest = true;
-        material.side = THREE.DoubleSide; // Use FrontSide for more consistent transparency
-      }
-      // Hide the cone which is the light texture - Most obvious in the "Estate" level
-      if (
-        material.name === "material_79.004" ||
-        material.name === "material_43.006"
-      ) {
-        material.opacity = 0.5;
-        material.blending = THREE.NormalBlending;
-      }
-
-      // Hide the purple boxes in Storm (why were there purple boxes?!)
-      console.log("Material Name", material.name);
-      if (material.name === "material_48.015") {
-        material.opacity = 0.5;
-        material.blending = THREE.NormalBlending;
-      }
     }
 
     // Animation Loop
@@ -301,4 +273,4 @@ const CounterStrike: React.FC<SceneProps> = ({ scene }) => {
   return <div ref={mountRef} />;
 };
 
-export default CounterStrike;
+export default HalfLife;
