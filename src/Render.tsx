@@ -2,6 +2,7 @@ import Scene from "./Scene";
 import N64_GEPD from "./renders/N64_GEPD";
 import UnrealTournament from "./renders/UnrealTournament";
 import Doom from "./renders/Doom";
+import MetalGearSolid from "./renders/MetalGearSolid";
 import ThreeJs from "./renders/ThreeJs";
 import CounterStrike from "./renders/CounterStrike";
 import HalfLife from "./renders/HalfLife";
@@ -25,6 +26,9 @@ export default function Render({ setupScene }: { setupScene: Scene }) {
       break;
     case "Doom":
       return <Doom scene={setupScene} />;
+      break;
+    case "MetalGearSolid":
+      return <MetalGearSolid scene={setupScene} />;
       break;
     default:
       break;
