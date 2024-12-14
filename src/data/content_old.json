@@ -154,7 +154,7 @@
         "startPosZ": 1053.2890362706096,
         "startRotX": -0.004000675046668075,
         "startRotY": -0.01837046737792691,
-        "startRotZ": -0.00007349052872498032
+        "startRotZ": -7.349052872498032e-5
       },
       {
         "label": "Inferno",
@@ -344,7 +344,13 @@
         "renderer": "CounterStrike",
         "cameraclip": 100000,
         "speed": 250,
-        "skybox": "blue.png"
+        "skybox": "blue.png",
+        "startPosX": null,
+        "startPosY": null,
+        "startPosZ": null,
+        "startRotX": null,
+        "startRotY": null,
+        "startRotZ": null
       }
     ]
   },
