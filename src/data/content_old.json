@@ -154,7 +154,7 @@
         "startPosZ": 1053.2890362706096,
         "startRotX": -0.004000675046668075,
         "startRotY": -0.01837046737792691,
-        "startRotZ": -0.00007349052872498032
+        "startRotZ": -7.349052872498032e-5
       },
       {
         "label": "Inferno",
@@ -1924,6 +1924,25 @@
         "cameraclip": 1000,
         "speed": 25,
         "skybox": "blue.png",
+        "startPosX": 0,
+        "startPosY": 0,
+        "startPosZ": 0,
+        "startRotX": 0,
+        "startRotY": 0,
+        "startRotZ": 0
+      }
+    ]
+  },
+  {
+    "label": "Metal Gear Solid",
+    "links": [
+      {
+        "label": "1. Docks",
+        "path": "/Metal Gear Solid/1. Docks",
+        "renderer": "MetalGearSolid",
+        "cameraclip": 1000,
+        "speed": 25,
+        "skybox": "black.png",
         "startPosX": 0,
         "startPosY": 0,
         "startPosZ": 0,
