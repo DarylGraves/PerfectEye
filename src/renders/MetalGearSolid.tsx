@@ -268,11 +268,13 @@ const MetalGearSolid: React.FC<SceneProps> = ({ scene }) => {
     function processMaterial(material: THREE.Material): THREE.Material {
       const texture = (material as any).map || null;
 
+      const isOpaque = material.name === "00f777" || material.name === "007eed"; // Windows in the torture room/cell should be transparent.
+
       const basicMaterial = new THREE.MeshBasicMaterial({
         map: texture, // Apply the texture if available
         color: (material as any).color || 0xffffff, // Fallback color
         transparent: true, // Ensure transparency
-        opacity: 1.0, // Keep full opacity (transparency handled by texture)
+        opacity: isOpaque ? 0.5 : 1.0, // Keep full opacity (transparency handled by texture)
         alphaTest: 0.5, // Discard pixels below this alpha threshold
         side: material.side || THREE.DoubleSide, // Render both sides of the mesh
         blending: THREE.NormalBlending, // Smooth transparency blending

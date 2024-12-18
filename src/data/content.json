@@ -1977,6 +1977,20 @@
         "startRotX": 0,
         "startRotY": 0,
         "startRotZ": 0
+      },
+      {
+        "label": "4. Hangar B1 Cell Block",
+        "path": "/Metal Gear Solid/4. Hangar B1 Cell Block",
+        "renderer": "MetalGearSolid",
+        "cameraclip": 1000,
+        "speed": 25,
+        "skybox": "black.png",
+        "startPosX": 0,
+        "startPosY": 0,
+        "startPosZ": 0,
+        "startRotX": 0,
+        "startRotY": 0,
+        "startRotZ": 0
       }
     ]
   },

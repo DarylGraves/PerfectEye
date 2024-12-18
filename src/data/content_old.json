@@ -1963,6 +1963,20 @@
         "startRotX": 0,
         "startRotY": 0,
         "startRotZ": 0
+      },
+      {
+        "label": "3. Tank Hangar",
+        "path": "/Metal Gear Solid/3. Tank Hangar",
+        "renderer": "MetalGearSolid",
+        "cameraclip": 1000,
+        "speed": 25,
+        "skybox": "black.png",
+        "startPosX": 0,
+        "startPosY": 0,
+        "startPosZ": 0,
+        "startRotX": 0,
+        "startRotY": 0,
+        "startRotZ": 0
       }
     ]
   },
