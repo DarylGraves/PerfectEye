@@ -228,6 +228,7 @@ const BootUpCanvas: React.FC = () => {
       );
 
       await displayLine("");
+      await displayLine("Shall we play a game?");
       await displayLine("Select an option on the left to begin.");
       await displayLine("Once loaded, click the window to take control.");
       await displayLine(
